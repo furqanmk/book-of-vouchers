@@ -7,15 +7,15 @@
 angular.module('myApp.adminAdd', ['ngRoute'])
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/add_admin', {
-    templateUrl: 'src/admin/Add/addAdminForm.html',
+    templateUrl: 'app/src/admin/Add/addAdminForm.html',
     controller: 'adminAddCtrl'
   });
 }])
 .controller('adminAddCtrl', ['$scope','adminAddService', 'authService', function($scope, adminAddService, authService) {
   	
-    // if (authService.isUserLoggedIn() === false) {
-    //     $window.location.href = "#!/login";
-    // }
+    if (authService.isUserLoggedIn() === false) {
+        $window.location.href = "#!/login";
+    }
 
     $scope.success = "";
     $scope.error = "";

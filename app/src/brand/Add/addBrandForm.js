@@ -4,12 +4,17 @@ angular.module('myApp.addBrand', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/add_brand', {
-    templateUrl: 'src/brand/Add/addBrandForm.html',
+    templateUrl: 'app/src/brand/Add/addBrandForm.html',
     controller: 'addBrandFormCtrl'
   });
 }])
-.controller('addBrandFormCtrl', ['$scope','$window', '$timeout', 'addBrandService', 'Upload', function($scope, $window, $timeout, addBrandService, Upload) {
-	$scope.success = "";
+.controller('addBrandFormCtrl', ['$scope','$window', '$timeout', 'authService', 'addBrandService', 'Upload', function($scope, $window, $timeout, authService ,addBrandService, Upload) {
+    
+   if (authService.isUserLoggedIn() === false) {
+           $window.location.href = "#!/login";
+   };
+
+  	$scope.success = "";
     $scope.error = "";
 
 	$scope.brandModel = {
