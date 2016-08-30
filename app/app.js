@@ -3,7 +3,10 @@
 // Declare app level module which depends on views, and components init
 angular.module('myApp', [
   'ngRoute',
+  'ngStorage',
   'ngFileUpload',
+  'myApp.auth',
+  'cloudinary',
   'myApp.adminLogin',
   'myApp.adminDashboard',
   'myApp.adminAdd',
@@ -12,8 +15,6 @@ angular.module('myApp', [
   'myApp.editVoucher',
   'myApp.addBrand',
   'myApp.editBrand',
-  'myApp.auth',
-  // 'myApp.tokenInterceptor',
   'myApp.version'
 ])
 .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
