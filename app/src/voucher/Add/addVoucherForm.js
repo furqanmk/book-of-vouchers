@@ -81,9 +81,16 @@ angular.module('myApp.addVoucher', ['ngRoute'])
               file: file
             };
 
+            var HEADER = {
+                    'Content-Type': undefined,
+                    'token': undefined,
+                    'source_id': undefined
+            }
+
               file.upload = Upload.upload({
                   url:  IMAGE_ADD_API_URL,
-                  data: CLOUDINARY_DATA
+                  data: CLOUDINARY_DATA,
+                  headers: HEADER
               });         
 
              file.upload.then(function (response) {
@@ -91,6 +98,11 @@ angular.module('myApp.addVoucher', ['ngRoute'])
                   file.result = response.data;
                   $scope.VoucherDataModel.image.id = response.data.public_id;
                   $scope.VoucherDataModel.image.url = response.data.secure_url;
+                  console.log('image id', 
+                  $scope.VoucherDataModel.image.id);
+                  console.log('image url', 
+                  $scope.VoucherDataModel.image.url);
+                  
                 });
               }, function (response) {
                   $scope.error = response.status + ': Sorry, cannot upload image at the moment. Please try later';
@@ -110,6 +122,7 @@ angular.module('myApp.addVoucher', ['ngRoute'])
            .success(function(res, headers, status, config){
               if (res.status === true) {
                   $scope.success = "Voucher has been successfully added!";
+                  $window.alert($scope.success);
                   $window.location.href="#!/dashboard";
               };
            })

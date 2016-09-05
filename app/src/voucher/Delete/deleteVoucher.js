@@ -9,38 +9,26 @@ angular.module('myApp.deleteVoucher', ['ngRoute'])
 .controller('deleteVoucherCtrl', ['$scope', 'deleteVoucherService', function($scope, deleteVoucherService) {
 	console.log('delete voucher loaded');
 
-	$scope.deleteVoucher = function(model) {
-		console.log('delete vouhcer called');
-		//UNCOMMENT AND USE WHEN CDELETING VIA CTRLR ON PAGE
-		// deleteVoucherService.delete(model)
-		// .success(function(res, status, headers, config){
-			// console.log('res success', res);
-		// })
-		// .error(function(res, status, headers, config){
-			// console.log('res success', res);
-		// });
-	};
 }])
-.service('deleteVoucherService', ['$http', '$window', function ($http, $window) {
-	console.log('delete service loaded');
+.service('deleteVoucherService', ['$http', function ($http) {
 
-	var SESSION_TOKEN, SOURCE_ID, DELETE_API_URL, DELETE_BRANDS_URLheaders;
+	var DELETE_API_URL, HTTP_CONFIG;
 
-	SESSION_TOKEN = $window.localStorage['token'];
-	SOURCE_ID = $window.localStorage['source_id'];
+
 	DELETE_API_URL = 'https://book-of-vouchers.herokuapp.com/api/v1/admin/delete_voucher';
-	DELETE_BRANDS_URLheaders = {
-	    headers: 
-	    { 
-	    	'Content-Type': 'application/json',
-	        'token': SESSION_TOKEN,
-	        'source_id': SOURCE_ID
-	    }
-	    
-	 };
+
+
+	this.deleteVoucher = function (model) {
+
+
+     HTTP_CONFIG = {
+     	data: model,
+     	headers: {
+     		'Content-Type': 'application/json'
+     	}
+     }
 	
-	this.delete = function (model) {
-		return $http.delete(DELETE_API_URL, model, DELETE_BRANDS_URLheaders);
+			return $http.delete(DELETE_API_URL, HTTP_CONFIG);
 	};
 
 
